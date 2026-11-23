@@ -1,1 +1,515 @@
+<!DOCTYPE html>
 
+<html lang="bn">
+<head>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<title>ETOUR – Gaming Tournament Platform</title>
+<!-- Favicon (Placeholder) -->
+<link href="https://i.supaimg.com/bf1dc7e5-4af3-40c8-a51f-5c6867498dcc/165f0aaa-be6f-4e89-b81a-43458ccbc198.jpg" rel="icon" type="https://i.supaimg.com/bf1dc7e5-4af3-40c8-a51f-5c6867498dcc/165f0aaa-be6f-4e89-b81a-43458ccbc198.jpg"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+
+        /* WHITE THEME VARIABLES — Clean, modern, bright */
+        :root {
+            --bg-gradient-start: #f8fafc;
+            --bg-gradient-end: #eef2ff;
+            --card-bg: #ffffff;
+            --card-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.02);
+            --primary-blue: #2563eb;
+            --primary-dark: #1e40af;
+            --glow-blue: #3b82f6;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #475569;
+            --card-1-color: #2563eb;
+            --card-2-color: #059669;
+            --card-3-color: #7c3aed;
+            --card-4-color: #ea580c;
+            --red-accent: #dc2626;
+            --yellow-accent: #eab308;
+            --whatsapp-color: #25D366;
+            --facebook-color: #1877f2;
+            --telegram-color: #0088cc;
+            --border-light: #e2e8f0;
+            --soft-gray: #f1f5f9;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 24px 20px 40px;
+        }
+
+        /* Subtle background pattern (light version) */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" fill="transparent"/><circle cx="20" cy="20" r="4" fill="%233b82f6" opacity="0.08"/><circle cx="80" cy="40" r="3" fill="%2310b981" opacity="0.08"/><circle cx="40" cy="80" r="5" fill="%23a855f7" opacity="0.08"/><circle cx="70" cy="70" r="2" fill="%23f97316" opacity="0.08"/></svg>');
+            background-repeat: repeat;
+            background-size: 80px 80px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .header, .stats-grid, .features-section, .community-section {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Header & logo */
+        .header {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 32px;
+        }
+
+        .logo-box {
+            width: 110px;
+            height: 110px;
+            background: white;
+            border-radius: 32px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+        .logo-box:hover { transform: scale(1.02); }
+
+        .logo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .subtitle-sm {
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .main-title {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #1e40af, #2563eb, #3b82f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            color: var(--text-secondary);
+            font-size: 15px;
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            align-items: center;
+            font-weight: 500;
+        }
+        .tagline span { opacity: 0.7; }
+
+        /* Download button - white theme with vibrant blue */
+        .download-btn {
+            background: linear-gradient(95deg, #2563eb, #1d4ed8);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 60px;
+            font-size: 17px;
+            font-weight: 700;
+            width: 100%;
+            max-width: 340px;
+            margin: 28px auto 16px;
+            cursor: pointer;
+            box-shadow: 0 12px 24px -10px rgba(37, 99, 235, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.25s;
+            text-decoration: none;
+            letter-spacing: 0.3px;
+        }
+        .download-btn:active { transform: scale(0.97); box-shadow: 0 6px 14px -8px #1e40af; }
+        .download-btn i { font-size: 18px; }
+
+        /* Stats grid (cards) */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            width: 100%;
+            max-width: 420px;
+            margin-bottom: 30px;
+        }
+
+        /* modern white cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: 28px;
+            padding: 20px 12px;
+            text-align: center;
+            position: relative;
+            backdrop-filter: blur(0px);
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 24px 40px -16px rgba(0, 0, 0, 0.12); }
+
+        .icon-bg {
+            width: 56px;
+            height: 56px;
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 14px;
+            transition: all 0.2s;
+        }
+        .card h3 {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+        }
+        .card p {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .card-1 .icon-bg { background: #eff6ff; color: var(--card-1-color); }
+        .card-2 .icon-bg { background: #ecfdf5; color: var(--card-2-color); }
+        .card-3 .icon-bg { background: #f5f3ff; color: var(--card-3-color); }
+        .card-4 .icon-bg { background: #fff7ed; color: var(--card-4-color); }
+
+        /* Features section */
+        .features-section { 
+            width: 100%; 
+            max-width: 450px; 
+            padding: 0 0 40px; 
+        }
+
+        .features-header { 
+            text-align: center; 
+            margin-top: 20px;
+            margin-bottom: 32px; 
+        }
+        .features-header h2 { 
+            font-size: 26px; 
+            font-weight: 800; 
+            margin-bottom: 12px; 
+            color: #0f172a;
+        }
+        .features-header p { 
+            color: var(--text-secondary); 
+            font-size: 15px; 
+            font-weight: 500; 
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 28px;
+            padding: 28px 24px;
+            margin-bottom: 20px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-light);
+            text-align: left;
+            transition: all 0.2s;
+        }
+        .feature-card:hover { transform: translateY(-3px); box-shadow: 0 20px 30px -14px rgba(0, 0, 0, 0.1); }
+
+        .feature-card .icon-large {
+            width: 64px; 
+            height: 64px; 
+            border-radius: 24px;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            font-size: 28px; 
+            margin-bottom: 20px; 
+        }
+
+        .feature-card h3 { 
+            font-size: 20px; 
+            font-weight: 700; 
+            margin-bottom: 8px; 
+            color: #0f172a;
+        }
+        .feature-card p { 
+            color: var(--text-muted); 
+            font-size: 14px; 
+            line-height: 1.45;
+            font-weight: 500;
+        }
+
+        .card-deposit .icon-large { background: #fef2f2; color: var(--red-accent); }
+        .card-withdraw .icon-large { background: #ecfdf5; color: var(--card-2-color); }
+        .card-secure .icon-large { background: #eff6ff; color: var(--card-1-color); }
+        .card-rewards .icon-large { background: #fefce8; color: #ca8a04; }
+
+        .final-cta-text { 
+            font-size: 20px; 
+            font-weight: 700; 
+            margin: 28px 0 16px; 
+            text-align: center; 
+            color: #0f172a;
+        }
+        .final-cta-btn {
+            background: linear-gradient(95deg, #2563eb, #1e40af);
+            padding: 16px 0;
+            border-radius: 48px;
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            box-shadow: 0 15px 30px -12px #1e40af70;
+            width: 100%;
+            max-width: 380px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: 0.2s;
+            border: none;
+            margin: 0 auto;
+        }
+        .final-cta-btn:active { transform: scale(0.97); }
+
+        /* Community section - white theme */
+        .community-section {
+            width: 100%;
+            max-width: 460px;
+            padding: 40px 16px 30px;
+            text-align: center;
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(8px);
+            border-radius: 56px;
+            margin-top: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+        }
+
+        .community-section h2 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 28px;
+            color: #0f172a;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.2s;
+        }
+        .social-link:hover { transform: translateY(-5px); }
+
+        .social-link i {
+            font-size: 28px;
+            width: 64px;
+            height: 64px;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.1);
+            transition: all 0.2s;
+        }
+        .social-link span {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .whatsapp-icon { color: var(--whatsapp-color); background: white; border: 1px solid #e2e8f0; }
+        .facebook-icon { color: var(--facebook-color); background: white; border: 1px solid #e2e8f0; }
+        .telegram-icon { color: var(--telegram-color); background: white; border: 1px solid #e2e8f0; }
+
+        /* footer area */
+        .footer-logo-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .footer-logo-box {
+            width: 64px;
+            height: 64px;
+            border-radius: 20px;
+            background: white;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .footer-logo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .app-name {
+            font-size: 26px;
+            font-weight: 800;
+            background: linear-gradient(120deg, #1e40af, #3b82f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-contact {
+            margin: 20px 0 20px;
+            padding: 24px 20px;
+            background: white;
+            border-radius: 36px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-light);
+        }
+
+        .developer-badge {
+            display: inline-block;
+            background: #eef2ff;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #2563eb;
+            margin-bottom: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 18px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        .contact-item i {
+            color: #2563eb;
+            width: 24px;
+            font-size: 16px;
+        }
+        .contact-item a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .contact-item a:hover { color: #2563eb; }
+
+        .copyright-text {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 18px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border-light);
+        }
+        .copyright-text a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 16px 16px 32px; }
+            .main-title { font-size: 24px; }
+            .stats-grid { gap: 14px; }
+            .card h3 { font-size: 20px; }
+            .feature-card { padding: 22px 18px; }
+            .community-section { padding: 30px 12px 24px; }
+        }
+    </style>
+<meta content="ETOUR is a gaming tournament platform. Explore tournaments, find match room details in the app, and follow match results and leaderboards." name="description"/><meta content="index,follow" name="robots"/><meta content="website" property="og:type"/><meta content="ETOUR – Gaming Tournament Platform" property="og:title"/><meta content="Discover ETOUR gaming tournaments, participation information, match updates and leaderboard features." property="og:description"/><meta content="summary" name="twitter:card"/><meta content="ETOUR – Gaming Tournament Platform" name="twitter:title"/><meta content="Discover ETOUR gaming tournaments, participation information, match updates and leaderboard features." name="twitter:description"/><meta content="#2563eb" name="theme-color"/><script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "name": "ETOUR", "description": "Gaming tournament platform."}, {"@type": "WebSite", "name": "ETOUR", "description": "Gaming tournament information, match updates and leaderboard features."}]}</script></head>
+<body>
+<header class="header">
+<div class="logo-box">
+<!-- Logo placeholder – same https://i.supaimg.com/bf1dc7e5-4af3-40c8-a51f-5c6867498dcc/165f0aaa-be6f-4e89-b81a-43458ccbc198.jpg used -->
+<img alt="ETOUR Logo" src="https://i.supaimg.com/bf1dc7e5-4af3-40c8-a51f-5c6867498dcc/165f0aaa-be6f-4e89-b81a-43458ccbc198.jpg"/>
+</div>
+<p class="subtitle-sm">বাংলাদেশের #১ ট্রাস্টেড প্ল্যাটফর্ম</p>
+<h1 class="main-title">ETOUR Gaming Tournaments</h1>
+<div class="tagline">🎮 eFootball Tournaments • 🏆 Match Updates • 📊 Leaderboard</div>
+<!-- Direct APK download link (kept original) -->
+<a class="download-btn" href="etour.apk" rel="noopener noreferrer" target="_blank">
+<i class="fa-solid fa-download"></i> অ্যাপ ডাউনলোড করুন (APK)
+        </a>
+</header>
+<!-- Stats cards - light version with white glassmorphism -->
+<div class="stats-grid"><div class="card card-1"><div class="icon-bg"><i class="fa-solid fa-trophy"></i></div><h3>টুর্নামেন্ট</h3><p>গেমিং প্রতিযোগিতায় অংশ নিন</p></div><div class="card card-1"><div class="icon-bg"><i class="fa-solid fa-gamepad"></i></div><h3>eFootball</h3><p>গেমিং-কেন্দ্রিক অভিজ্ঞতা</p></div><div class="card card-1"><div class="icon-bg"><i class="fa-solid fa-id-card"></i></div><h3>Room Details</h3><p>অ্যাপের মধ্যে ম্যাচের তথ্য</p></div><div class="card card-1"><div class="icon-bg"><i class="fa-solid fa-ranking-star"></i></div><h3>Leaderboard</h3><p>ফলাফল ও অবস্থান দেখুন</p></div></div>
+<section class="features-section"><div class="features-header"><h2>✨ ETOUR-এ কী পাবেন?</h2><p>গেমিং টুর্নামেন্টের প্রয়োজনীয় তথ্য এক জায়গায়</p></div><div class="feature-card card-secure"><div class="icon-large"><i class="fa-solid fa-trophy"></i></div><h3>টুর্নামেন্টে অংশগ্রহণ</h3><p>ETOUR অ্যাপ থেকে উপলভ্য গেমিং টুর্নামেন্ট সম্পর্কে জানুন এবং অংশগ্রহণের নির্দেশনা অনুসরণ করুন।</p></div><div class="feature-card card-withdraw"><div class="icon-large"><i class="fa-solid fa-id-card"></i></div><h3>ম্যাচের Room Details</h3><p>প্রয়োজনীয় ম্যাচের Room ID ও সংশ্লিষ্ট তথ্য অ্যাপের মধ্যে দেখুন, যখন তা প্রকাশ করা হয়।</p></div><div class="feature-card card-deposit"><div class="icon-large"><i class="fa-solid fa-chart-column"></i></div><h3>লাইভ ফলাফল ও Leaderboard</h3><p>ম্যাচের ফলাফল এবং খেলোয়াড়দের অবস্থান অ্যাপে উপলভ্য থাকলে দেখে নিন।</p></div><div class="feature-card card-rewards"><div class="icon-large"><i class="fa-solid fa-users"></i></div><h3>গেমিং কমিউনিটি</h3><p>ETOUR-এর আপডেট ও যোগাযোগের তথ্য অনুসরণ করে কমিউনিটির সঙ্গে যুক্ত থাকুন।</p></div><p class="final-cta-text">ETOUR অ্যাপ সম্পর্কে জানতে ও ব্যবহার শুরু করতে ডাউনলোড করুন</p><a class="final-cta-btn" href="etour.apk" rel="noopener noreferrer" target="_blank"><i class="fa-solid fa-download"></i> অ্যাপ ডাউনলোড করুন</a></section>
+<script>
+        // Scroll animation: reveal cards and sections when they enter the screen.
+        document.addEventListener('DOMContentLoaded', function () {
+            const animatedItems = document.querySelectorAll(
+                '.logo-box, .stats-grid .card, .features-header, .feature-card, .final-cta-text, .final-cta-btn, .community-section'
+            );
+
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries, currentObserver) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                            currentObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                animatedItems.forEach((item, index) => {
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(20px)';
+                    item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    item.style.transitionDelay = (index % 4) * 70 + 'ms';
+                    observer.observe(item);
+                });
+            }
+        });
+    </script>
+<section class="features-section" id="how-it-works"><div class="features-header"><h2>কীভাবে ETOUR-এ অংশ নেবেন?</h2><p>অ্যাপের নির্দেশনা অনুসরণ করে টুর্নামেন্টে অংশগ্রহণ করুন</p></div><div class="feature-card card-secure"><h3>১. অ্যাপ ডাউনলোড করুন</h3><p>ETOUR অ্যাপ ইনস্টল করে খুলুন।</p></div><div class="feature-card card-secure"><h3>২. টুর্নামেন্টের তথ্য দেখুন</h3><p>অ্যাপে প্রকাশিত টুর্নামেন্ট, নিয়ম ও অংশগ্রহণের শর্ত পড়ুন।</p></div><div class="feature-card card-secure"><h3>৩. ম্যাচের জন্য প্রস্তুত হন</h3><p>নির্ধারিত ম্যাচের তথ্য ও Room Details অ্যাপে প্রকাশিত হলে দেখে নিন।</p></div><div class="feature-card card-secure"><h3>৪. ফলাফল অনুসরণ করুন</h3><p>ম্যাচ শেষে অ্যাপে উপলভ্য ফলাফল ও Leaderboard দেখুন।</p></div></section><section class="features-section" id="faq"><div class="features-header"><h2>সাধারণ জিজ্ঞাসা</h2></div><div class="feature-card"><h3>ETOUR কী?</h3><p>ETOUR একটি Gaming Tournament Platform, যেখানে গেমিং টুর্নামেন্টের তথ্য ও ম্যাচ-সম্পর্কিত আপডেট পাওয়া যায়।</p></div><div class="feature-card"><h3>কোন গেমের টুর্নামেন্ট পাওয়া যায়?</h3><p>ETOUR অ্যাপে বর্তমানে যে গেম ও টুর্নামেন্ট প্রকাশিত আছে, সেগুলোর তথ্য অ্যাপেই দেখুন।</p></div><div class="feature-card"><h3>Room ID কোথায় পাব?</h3><p>ম্যাচের Room ID ও প্রয়োজনীয় তথ্য প্রকাশিত হলে ETOUR অ্যাপের সংশ্লিষ্ট ম্যাচে দেখুন।</p></div><div class="feature-card"><h3>ফলাফল ও Leaderboard কোথায় দেখা যাবে?</h3><p>ফলাফল ও Leaderboard-এর তথ্য অ্যাপে উপলভ্য থাকলে সেখানে দেখা যাবে।</p></div><div class="feature-card"><h3>কীভাবে যোগাযোগ করব?</h3><p>ETOUR-এর অফিসিয়াল যোগাযোগ বা সোশ্যাল লিংক ব্যবহার করুন।</p></div></section><footer class="community-section"><h2>ETOUR</h2><p>Gaming Tournament Platform</p><p class="copyright-text">© 2026 ETOUR</p></footer></body>
+</html>
